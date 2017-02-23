@@ -9,3 +9,85 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias BoleteraApi.Repo
+alias BoleteraApi.State
+alias BoleteraApi.City
+alias BoleteraApi.Event
+
+# [
+#   %State{
+#     name: "Baja California Norte",
+#     active: 1
+#   },
+#   %State{
+#     name: "Baja California Sur",
+#     active: 0
+#   },
+#   %State{
+#     name: "Sonora",
+#     active: 1
+#   }
+# ] |> Enum.each(&Repo.insert!(&1))
+#
+#
+#
+# citys = [
+#   %{
+#     name: "Mexicali",
+#     active: 1
+#   },
+#   %{
+#     name: "Tijuana",
+#     active: 0
+#   },
+# ]
+#
+#
+# Repo.transaction fn ->
+#   Repo.all(State) |> Enum.each(fn(state) ->
+#     Enum.each(citys, fn(city) ->
+#       new_city = Ecto.build_assoc(state, :citys, Map.put(city, :state_id, state.id))
+#       Repo.insert!(new_city)
+#     end)
+#   end)
+# end
+
+
+events = [
+  %{
+    name: "ATP Finals",
+    description: "Using a round-robin format, players will compete in a minimum of three matches each during the group stages as they battle for a berth in the knockout semi-finals.",
+    image_path: "http://i.imgur.com/Nx7rK4j.jpg",
+    seats: 1200,
+    event_date: %Ecto.DateTime{year: 2017, month: 11, day: 19, hour: 14, min: 30, sec: 0},
+    price: 400.00,
+    active: 1
+  },
+  %{
+    name: "Barclaycard presents British Summer Time Hyde Park featuring Phil Collins",
+    description: "Phil Collins is “Not Dead Yet” and will bring his tour of the same name to Barclaycard presents Hyde Park in June. Following a 2002 retirement, Phil Collins returned with a string of classic album reissues and the announcement he’d be playing.",
+    image_path: "http://i.imgur.com/Esf4Q91.jpg",
+    seats: 900,
+    event_date: %Ecto.DateTime{year: 2017, month: 06, day: 30, hour: 12, min: 00, sec: 0},
+    price: 800.00,
+    active: 1
+  },
+  %{
+    name: "Russell Howard: Round The World Tour",
+    description: "Coming to Bournemouth International Centre, critically acclaimed “comedy superstar” (Time Out), one of the best-selling acts in British stand-up, and host of the smash hit TV show Russell Howard’s Good News.",
+    image_path: "http://i.imgur.com/i7FBzzb.jpg",
+    seats: 400,
+    event_date: %Ecto.DateTime{year: 2017, month: 04, day: 04, hour: 19, min: 00, sec: 0},
+    price: 300.00,
+    active: 1
+  },
+]
+
+Repo.transaction fn ->
+  Repo.all(City) |> Enum.each(fn(city) ->
+    Enum.each(events, fn(event) ->
+      new_event = Ecto.build_assoc(city, :events, Map.put(event, :city_id, city.id))
+      Repo.insert!(new_event)
+    end)
+  end)
+end

@@ -35,8 +35,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :boletera_api, BoleteraApi.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "german",
+  password: "",
   database: "boletera_api_dev",
   hostname: "localhost",
   pool_size: 10

@@ -19,8 +19,15 @@ defmodule BoleteraApi.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BoleteraApi do
-  #   pipe_through :api
-  # end
+  scope "/api", BoleteraApi do
+    pipe_through :api
+
+    resources "/citys", CityController, except: [:new, :edit] do
+      resources "/states", StateController, except: [:new, :edit]
+    end
+
+    resources "/states", StateController, except: [:new, :edit]
+    resources "/events", EventController, except: [:new, :edit]
+  end
+
 end
