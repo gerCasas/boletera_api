@@ -38,5 +38,6 @@ defmodule BoleteraApi.Endpoint do
     key: "_boletera_api_key",
     signing_salt: "w7mw8A4j"
 
+  plug Corsica, origins: "*"
   plug BoleteraApi.Router
 end
