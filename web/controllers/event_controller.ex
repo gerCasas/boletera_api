@@ -3,6 +3,19 @@ defmodule BoleteraApi.EventController do
 
   alias BoleteraApi.Event
 
+  def index(conn, %{"active" => active} = _params) do
+    events = Repo.all(
+    from p in Event,
+     where: p.active == ^active,
+     select: p
+    )
+
+    # agregar para que tambien se pueda filtrar por fecha del evento mayor a la actual...
+    # checar como se hacer los querys dinamicos.
+
+    render(conn, "index.json", events: events)
+  end
+
   def index(conn, _params) do
     events = Repo.all(Event)
     render(conn, "index.json", events: events)
