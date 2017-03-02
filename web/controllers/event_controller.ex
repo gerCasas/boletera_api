@@ -7,21 +7,10 @@ defmodule BoleteraApi.EventController do
 
   def index(conn, _params) do
 
-    # current_datetime
-    current_datetime =
-      DateTime.utc_now
-      |> DateTime.to_iso8601
-
-    IO.puts("+++")
-    IO.puts("+++")
-    datetime = Timex.now
-    IO.inspect(datetime)
-    IO.inspect(current_datetime)
-
-
-    query = from u in Event, where: u.active == 1 and u.event_date >= ^"2017-07-30T12:00:00"
+    # datetime = Timex.format!(Timex.local, "{ISO:Extended:Z}")
+    datetime = Timex.now("America/Tijuana")
+    query = from u in Event, where: u.active == 1 and u.event_date >= ^datetime, order_by: u.inserted_at
     events = Repo.all(query)
-
 # , p.event_date >=
     # agregar para que tambien se pueda filtrar por fecha del evento mayor a la actual...
     # checar como se hacer los querys dinamicos.
