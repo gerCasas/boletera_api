@@ -4,7 +4,8 @@ defmodule BoleteraApi.CityController do
   alias BoleteraApi.City
 
   def index(conn, _params) do
-    citys = Repo.all(City)
+    query = from u in City, where: u.active == 1
+    citys = Repo.all(query)
     render(conn, "index.json", citys: citys)
   end
 
