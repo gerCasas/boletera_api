@@ -22,12 +22,19 @@ defmodule BoleteraApi.Router do
   scope "/api", BoleteraApi do
     pipe_through :api
 
-    resources "/citys", CityController, except: [:new, :edit] do
-      resources "/states", StateController, except: [:new, :edit]
+    resources "/states", StateController, except: [:new, :edit] do
+      resources "/citys", CityController, except: [:new, :edit, :show, :update, :create, :delete]
     end
 
-    resources "/states", StateController, except: [:new, :edit]
-    resources "/events", EventController, except: [:new, :edit]
+    resources "/citys", CityController, except: [:new, :edit] do
+      resources "/events", EventController, except: [:new, :edit, :show, :update, :create, :delete]
+      resources "/carousel_events", CarouselEventController, except: [:new, :edit, :show, :update, :create, :delete]
+    end
+
+    resources "/events", EventController, except: [:new, :edit] do
+      resources "/carousel_events", CarouselEventController, except: [:new, :edit, :show, :update, :create, :delete]
+    end
+    resources "/carousel_events", CarouselEventController, except: [:new, :edit]
   end
 
 end

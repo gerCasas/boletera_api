@@ -5,53 +5,8 @@ defmodule BoleteraApi.EventController do
   alias BoleteraApi.Event
   # alias BoleteraApi.QueryFilter
 
-#   def index(conn, _params) do
-#
-#     # datetime = Timex.format!(Timex.local, "{ISO:Extended:Z}")
-#     datetime = Timex.now("America/Tijuana")
-#     query = from u in Event, where: u.active == 1 and u.event_date >= ^datetime, order_by: u.inserted_at
-#     events = Repo.all(query)
-# # , p.event_date >=
-#     # agregar para que tambien se pueda filtrar por fecha del evento mayor a la actual...
-#     # checar como se hacer los querys dinamicos.
-#
-#     render(conn, "index.json", events: events)
-#   end
-
   def index(conn, params) do
 
-    # IO.puts("+++")
-    # # IO.inspect(params)
-    # IO.puts(params["gt_event_date"])
-    # IO.puts("+++")
-    # value = params["gt_event_date"]
-    # if value do
-    #     IO.puts("+++")
-    #     IO.puts(value)
-    #     IO.puts("+++")
-    #   else
-    #     IO.puts("+++")
-    #     IO.puts("NOOOOOO")
-    #     IO.puts("+++")
-    # end
-
-    # case params["gt_event_date"] do
-    #   nil ->
-    #
-    #   value ->
-    #
-    # end
-
-    # value = params["gt_event_date"]
-    # if value do
-    #   query = from u in Event, where: u.event_date >= ^value
-    #   events = Repo.all(query)
-    # else
-    #   events =
-    #     Event
-    #     |> QueryFilter.filter(%Event{}, params, [:name, :description, :image_path, :seats, :event_date, :price, :active, :city_id, :id])
-    #     |> Repo.all
-    # end
     events =
     case params["city_id"] do
       nil ->
@@ -63,12 +18,6 @@ defmodule BoleteraApi.EventController do
         # IO.puts("+++++++++++++++++++++++++++")
         # IO.inspect(params)
         # IO.inspect(value)
-        # query = from u in Event, where: u.city_id >= ^value
-        # IO.inspect(query)
-        # Repo.all(query)
-        # Event
-        #   |> QueryFilter.filter(%Event{}, params, [:city_id, :active, :id])
-        #   |> Repo.all
         datetime = Timex.now("America/Tijuana")
         query = from u in Event, where: u.city_id == ^value and u.active == 1 and u.event_date >= ^datetime, order_by: u.inserted_at
         Repo.all(query)

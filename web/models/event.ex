@@ -10,6 +10,7 @@ defmodule BoleteraApi.Event do
     field :price, :decimal
     field :active, :integer
     belongs_to :city, BoleteraApi.City
+    has_many :carouselevents, BoleteraApi.CarouselEvent
 
     timestamps()
   end
