@@ -4,6 +4,7 @@ defmodule BoleteraApi.CarouselEvent do
   schema "carouselevents" do
     field :image_path, :string
     field :active, :integer
+    field :color_rgb, :string
     belongs_to :event, BoleteraApi.Event
 
     timestamps()

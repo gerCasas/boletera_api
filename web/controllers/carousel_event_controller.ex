@@ -14,7 +14,8 @@ defmodule BoleteraApi.CarouselEventController do
         join: e in Event, where: ce.event_id == e.id
         and e.city_id == ^value
         and e.active == 1
-        and ce.active == 1
+        and ce.active == 1,
+        order_by: ce.inserted_at
         Repo.all(query)
     end
     render(conn, "index.json", carouselevents: carouselevents)

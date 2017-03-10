@@ -13,6 +13,7 @@ defmodule BoleteraApi.CarouselEventView do
     %{id: carousel_event.id,
       image_path: carousel_event.image_path,
       event_id: carousel_event.event_id,
-      active: carousel_event.active}
+      active: carousel_event.active,
+      color_rgb: carousel_event.color_rgb}
   end
 end
