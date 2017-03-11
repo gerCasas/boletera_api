@@ -9,6 +9,9 @@ defmodule BoleteraApi.Event do
     field :event_date, Ecto.DateTime
     field :price, :decimal
     field :active, :integer
+    field :color_rgb, :string
+    field :image_background_path, :string
+    field :address, :string
     belongs_to :city, BoleteraApi.City
     has_many :carouselevents, BoleteraApi.CarouselEvent
 
@@ -20,7 +23,7 @@ defmodule BoleteraApi.Event do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :description, :image_path, :seats, :event_date, :price, :active])
-    |> validate_required([:name, :description, :image_path, :seats, :event_date, :price, :active])
+    |> cast(params, [:name, :description, :image_path, :seats, :event_date, :price, :active, :color_rgb, :image_background_path, :address])
+    |> validate_required([:name, :description, :image_path, :seats, :event_date, :price, :active, :color_rgb, :image_background_path, :address])
   end
 end

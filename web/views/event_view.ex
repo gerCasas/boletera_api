@@ -18,6 +18,9 @@ defmodule BoleteraApi.EventView do
       event_date: event.event_date,
       price: event.price,
       active: event.active,
-      city_id: event.city_id}
+      city_id: event.city_id,
+      color_rgb: event.color_rgb,
+      image_background_path: event.image_background_path,
+      address: event.address}
   end
 end
