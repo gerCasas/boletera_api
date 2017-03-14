@@ -3,31 +3,54 @@ defmodule BoleteraApi.EventController do
   use Timex
 
   alias BoleteraApi.Event
-  # alias BoleteraApi.QueryFilter
+  alias BoleteraApi.City
 
   def index(conn, params) do
 
     events =
     case params["city_id"] do
       nil ->
-        # IO.puts("+++")
         datetime = Timex.now("America/Tijuana")
-        query = from u in Event, where: u.active == 1 and u.event_date >= ^datetime, order_by: u.inserted_at
+        query = from u in Event, where: u.active == 1
+        and u.event_date >= ^datetime,
+        order_by: u.inserted_at
         Repo.all(query)
+
       value ->
-        # IO.puts("+++++++++++++++++++++++++++")
-        # IO.inspect(params)
-        # IO.inspect(value)
         datetime = Timex.now("America/Tijuana")
-        query = from u in Event, where: u.city_id == ^value and u.active == 1 and u.event_date >= ^datetime, order_by: u.inserted_at
+        query = from event in Event, join: city in City,  where: event.city_id == city.id
+        and event.city_id == ^value
+        and event.active == 1
+        and event.event_date >= ^datetime,
+        select:
+        %{id: event.id,
+          name: event.name,
+          description: event.description,
+          image_path: event.image_path,
+          seats: event.seats,
+          event_date: event.event_date,
+          price: event.price,
+          active: event.active,
+          city_id: event.city_id,
+          color_rgb: event.color_rgb,
+          image_background_path: event.image_background_path,
+          address: event.address,
+          refounds: event.refounds,
+          gifting: event.gifting,
+          assistance: event.assistance,
+          prices: event.prices,
+          restrictions: event.restrictions,
+          tickets: event.tickets,
+          questions: event.questions,
+          age_restrictions: event.age_restrictions,
+          purchase_limit: event.purchase_limit,
+          additional_info: event.additional_info,
+          video_url: event.video_url,
+          city_id: city.id,
+          city_name: city.name
+          }
         Repo.all(query)
     end
-
-
-    # events =
-    #   Event
-    #   |> QueryFilter.filter(%Event{}, params, [:name, :description, :image_path, :seats, :event_date, :price, :active, :city_id, :id])
-    #   |> Repo.all
 
     render(conn, "index.json", events: events)
   end
@@ -55,6 +78,9 @@ defmodule BoleteraApi.EventController do
 
   def show(conn, %{"id" => id}) do
     event = Repo.get!(Event, id)
+    # para agregar al map el nombre de la ciudad
+    city = Repo.get!(City, event.city_id)
+    event = Map.put(event, :city_name, city.name)
     render(conn, "show.json", event: event)
   end
 
