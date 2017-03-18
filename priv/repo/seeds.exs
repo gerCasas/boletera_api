@@ -14,6 +14,7 @@ alias BoleteraApi.State
 alias BoleteraApi.City
 alias BoleteraApi.Event
 alias BoleteraApi.CarouselEvent
+alias BoleteraApi.Category
 
 # [
 #   %State{
@@ -94,27 +95,42 @@ alias BoleteraApi.CarouselEvent
 # end
 
 
+# carousel_events = [
+#   %{
+#     image_path: "http://i.imgur.com/Nx7rK4j.jpg",
+#     active: 1
+#   },
+#   %{
+#     image_path: "http://i.imgur.com/Esf4Q91.jpg",
+#     active: 1
+#   },
+#   %{
+#     image_path: "http://i.imgur.com/i7FBzzb.jpg",
+#     active: 1
+#   },
+# ]
+#
+# Repo.transaction fn ->
+#   Repo.all(Event) |> Enum.each(fn(event) ->
+#     Enum.each(carousel_events, fn(carousel_event) ->
+#       new_carouselevent = Ecto.build_assoc(event, :carouselevents, Map.put(carousel_event, :event_id, event.id))
+#       Repo.insert!(new_carouselevent)
+#     end)
+#   end)
+# end
 
-carousel_events = [
-  %{
-    image_path: "http://i.imgur.com/Nx7rK4j.jpg",
-    active: 1
-  },
-  %{
-    image_path: "http://i.imgur.com/Esf4Q91.jpg",
-    active: 1
-  },
-  %{
-    image_path: "http://i.imgur.com/i7FBzzb.jpg",
-    active: 1
-  },
-]
 
-Repo.transaction fn ->
-  Repo.all(Event) |> Enum.each(fn(event) ->
-    Enum.each(carousel_events, fn(carousel_event) ->
-      new_carouselevent = Ecto.build_assoc(event, :carouselevents, Map.put(carousel_event, :event_id, event.id))
-      Repo.insert!(new_carouselevent)
-    end)
-  end)
-end
+[
+  %Category{
+    name: "Sports",
+    active: 1
+  },
+  %Category{
+    name: "Entertainment",
+    active: 1
+  },
+  %Category{
+    name: "Other Shows",
+    active: 1
+  }
+] |> Enum.each(&Repo.insert!(&1))

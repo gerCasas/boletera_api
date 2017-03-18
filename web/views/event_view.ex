@@ -80,7 +80,7 @@ defmodule BoleteraApi.EventView do
   end
 
   def filter_null_event_keys(event) do
-    eventfiltered = Enum.filter(event.event_details, &filter_nulls/1)
+    Enum.filter(event.event_details, &filter_nulls/1)
   end
 
   def filter_nulls(row) do
