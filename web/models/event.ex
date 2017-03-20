@@ -24,6 +24,7 @@ defmodule BoleteraApi.Event do
     field :additional_info, :string
     field :video_url, :string
     belongs_to :city, BoleteraApi.City
+    belongs_to :category, BoleteraApi.Category
     has_many :carouselevents, BoleteraApi.CarouselEvent
 
     timestamps()

@@ -40,13 +40,13 @@ defmodule BoleteraApi.EventView do
         event_date: event.event_date,
         price: event.price,
         active: event.active,
-        city_id: event.city_id,
         color_rgb: event.color_rgb,
         image_background_path: event.image_background_path,
         address: event.address,
         video_url: event.video_url,
         city_id: event.city_id,
         city_name: event.city_name,
+        category_id: event.category_id,
 
         details: event_details
       }
@@ -74,7 +74,8 @@ defmodule BoleteraApi.EventView do
         age_restrictions: event.age_restrictions,
         purchase_limit: event.purchase_limit,
         additional_info: event.additional_info,
-        video_url: event.video_url
+        video_url: event.video_url,
+        category_id: event.category_id
         }
     end
   end

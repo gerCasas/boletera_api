@@ -4,7 +4,10 @@ defmodule BoleteraApi.CategoryController do
   alias BoleteraApi.Category
 
   def index(conn, _params) do
-    categories = Repo.all(Category)
+    query = from categories in Category,
+    order_by: categories.order_view
+    categories = Repo.all(query)
+    # categories = Repo.all(Category)
     render(conn, "index.json", categories: categories)
   end
 

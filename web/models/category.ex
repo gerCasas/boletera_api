@@ -4,6 +4,7 @@ defmodule BoleteraApi.Category do
   schema "categories" do
     field :name, :string
     field :active, :integer
+    field :order_view, :integer
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule BoleteraApi.Category do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :active])
-    |> validate_required([:name, :active])
+    |> cast(params, [:name, :active, :order_view])
+    |> validate_required([:name, :active, :order_view])
   end
 end
