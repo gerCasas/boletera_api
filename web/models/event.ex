@@ -7,6 +7,7 @@ defmodule BoleteraApi.Event do
     field :image_path, :string
     field :seats, :integer
     field :event_date, Ecto.DateTime
+    field :final_event_date, Ecto.DateTime
     field :price, :decimal
     field :active, :integer
     field :color_rgb, :string
@@ -36,6 +37,6 @@ defmodule BoleteraApi.Event do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :description, :image_path, :seats, :event_date, :price, :active, :color_rgb, :image_background_path, :address, :refounds, :gifting, :assistance, :prices, :restrictions, :tickets, :questions, :age_restrictions, :purchase_limit, :additional_info, :video_url])
-    |> validate_required([:name, :description, :image_path, :seats, :event_date, :price, :active, :color_rgb, :address])
+    |> validate_required([:name, :description, :image_path, :seats, :event_date, :final_event_date, :price, :active, :color_rgb, :address])
   end
 end

@@ -13,7 +13,7 @@ defmodule BoleteraApi.EventController do
         datetime = Timex.now("America/Tijuana")
         query = from u in Event, where: u.active == 1
         and u.event_date >= ^datetime,
-        order_by: u.inserted_at
+        order_by: u.event_date
         Repo.all(query)
 
       value ->
@@ -32,6 +32,7 @@ defmodule BoleteraApi.EventController do
             image_path: event.image_path,
             seats: event.seats,
             event_date: event.event_date,
+            final_event_date: event.final_event_date,
             price: event.price,
             active: event.active,
             city_id: event.city_id,
@@ -52,7 +53,7 @@ defmodule BoleteraApi.EventController do
             city_id: city.id,
             city_name: city.name,
             category_id: event.category_id
-          }
+            }, order_by: event.event_date
           Repo.all(query)
           value ->
               query = from event in Event, join: city in City,  where: event.city_id == city.id
@@ -67,6 +68,7 @@ defmodule BoleteraApi.EventController do
               image_path: event.image_path,
               seats: event.seats,
               event_date: event.event_date,
+              final_event_date: event.final_event_date,
               price: event.price,
               active: event.active,
               city_id: event.city_id,
@@ -87,7 +89,7 @@ defmodule BoleteraApi.EventController do
               city_id: city.id,
               city_name: city.name,
               category_id: event.category_id
-            }
+              }, order_by: event.event_date
             Repo.all(query)
         end
     end
