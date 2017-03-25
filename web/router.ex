@@ -39,6 +39,11 @@ defmodule BoleteraApi.Router do
     end
     resources "/carousel_events", CarouselEventController, except: [:new, :edit]
     resources "/categories", CategoryController, except: [:new, :edit]
+
+    resources "/events", EventController, except: [:new, :edit] do
+      resources "/event_photos", Event_PhotoController, except: [:new, :edit, :show, :update, :create, :delete]
+    end
+    resources "/event_photos", Event_PhotoController, except: [:new, :edit]
   end
 
 end

@@ -27,6 +27,7 @@ defmodule BoleteraApi.Event do
     belongs_to :city, BoleteraApi.City
     belongs_to :category, BoleteraApi.Category
     has_many :carouselevents, BoleteraApi.CarouselEvent
+    has_many :event_photos, BoleteraApi.Event_Photo
 
     timestamps()
   end

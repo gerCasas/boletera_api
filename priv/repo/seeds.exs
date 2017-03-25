@@ -15,6 +15,7 @@ alias BoleteraApi.City
 alias BoleteraApi.Event
 alias BoleteraApi.CarouselEvent
 alias BoleteraApi.Category
+alias BoleteraApi.Event_Photo
 
 # [
 #   %State{
@@ -119,18 +120,38 @@ alias BoleteraApi.Category
 #   end)
 # end
 
+#
+# [
+#   %Category{
+#     name: "Sports",
+#     active: 1
+#   },
+#   %Category{
+#     name: "Entertainment",
+#     active: 1
+#   },
+#   %Category{
+#     name: "Other Shows",
+#     active: 1
+#   }
+# ] |> Enum.each(&Repo.insert!(&1))
 
-[
-  %Category{
-    name: "Sports",
-    active: 1
-  },
-  %Category{
-    name: "Entertainment",
-    active: 1
-  },
-  %Category{
-    name: "Other Shows",
-    active: 1
-  }
-] |> Enum.each(&Repo.insert!(&1))
+
+# event_photos = [
+#   %Event_Photo{
+#     image_path: "http://i.imgur.com/Nx7rK4j.jpg",
+#     active: 1
+#   },
+#   %Event_Photo{
+#     image_path: "http://i.imgur.com/Esf4Q91.jpg",
+#     active: 1
+#   },
+#   %Event_Photo{
+#     image_path: "http://i.imgur.com/i7FBzzb.jpg",
+#     active: 1
+#   },
+#   %Event_Photo{
+#     image_path: "http://i.imgur.com/ZBaFZw2.jpg",
+#     active: 1
+#   }
+# ] |> Enum.each(&Repo.insert!(&1))
