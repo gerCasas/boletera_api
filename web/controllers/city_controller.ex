@@ -30,6 +30,9 @@ defmodule BoleteraApi.CityController do
 
   def show(conn, %{"id" => id}) do
     city = Repo.get!(City, id)
+    IO.puts("++++++++")
+    IO.inspect(city)
+    IO.puts("++++++++")
     render(conn, "show.json", city: city)
   end
 

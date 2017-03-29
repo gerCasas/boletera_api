@@ -13,7 +13,7 @@ config :boletera_api,
 config :boletera_api, BoleteraApi.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "rVQUjH+vsHYxp1tDXi4tt9aucayIW4rhSJLWSp8WD/43+y5aPoW1eJVaTmgk30y5",
-  render_errors: [view: BoleteraApi.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: BoleteraApi.ErrorView, format: "json", accepts: ~w(json)],
   pubsub: [name: BoleteraApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

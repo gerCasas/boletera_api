@@ -17,16 +17,16 @@ defmodule BoleteraApi.EventView do
 
       event_details = %{
         event_details: [
-          %{key: "Refounds", value: event.refounds},
-          %{key: "Gifting", value: event.gifting},
-          %{key: "Assistance", value: event.assistance},
-          %{key: "Prices", value: event.prices},
-          %{key: "Restrictions", value: event.restrictions},
+          %{key: "Reembolso", value: event.refounds},
+          %{key: "Regalos", value: event.gifting},
+          %{key: "Asistencia", value: event.assistance},
+          %{key: "Precios", value: event.prices},
+          %{key: "Restricciones", value: event.restrictions},
           %{key: "Tickets", value: event.tickets},
-          %{key: "Questions", value: event.questions},
-          %{key: "Age Restrictions", value: event.age_restrictions},
-          %{key: "Purchase Limit", value: event.purchase_limit},
-          %{key: "Additional Info", value: event.additional_info}
+          %{key: "Preguntas", value: event.questions},
+          %{key: "Restricciones de edad", value: event.age_restrictions},
+          %{key: "Limite de compra", value: event.purchase_limit},
+          %{key: "Info adicional", value: event.additional_info}
         ]
       }
 
