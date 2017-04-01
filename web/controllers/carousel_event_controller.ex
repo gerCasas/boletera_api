@@ -8,14 +8,35 @@ defmodule BoleteraApi.CarouselEventController do
     carouselevents =
     case params["city_id"] do
       nil ->
-        Repo.all(CarouselEvent)
+        query = from ce in CarouselEvent,
+        join: event in Event, where: ce.event_id == event.id
+        and ce.active == 1,
+        select: %{
+          id: ce.id,
+          image_path: ce.image_path,
+          event_id: ce.event_id,
+          active: ce.active,
+          color_rgb: ce.color_rgb,
+          event_name: event.name
+        },
+        order_by: ce.inserted_at
+        Repo.all(query)
       value ->
         query = from ce in CarouselEvent,
-        join: e in Event, where: ce.event_id == e.id
-        and e.city_id == ^value
-        and e.active == 1
+        join: event in Event, where: ce.event_id == event.id
+        and event.city_id == ^value
+        and event.active == 1
         and ce.active == 1,
-        order_by: ce.inserted_at
+        select: %{
+          id: ce.id,
+          image_path: ce.image_path,
+          event_id: ce.event_id,
+          active: ce.active,
+          color_rgb: ce.color_rgb,
+          event_name: event.name
+        },
+        order_by: ce.inserted_at,
+        limit: 10
         Repo.all(query)
     end
     render(conn, "index.json", carouselevents: carouselevents)
