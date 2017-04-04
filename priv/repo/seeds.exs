@@ -162,15 +162,15 @@ alias BoleteraApi.Event_Photo
 
 [
   %CarouselEvent{
-    image_path: "http://i.imgur.com/Nx7rK4j.jpg",
+    image_path: "http://i.imgur.com/YxuCcfU.jpg",
     active: 1
   },
   %CarouselEvent{
-    image_path: "http://i.imgur.com/Esf4Q91.jpg",
+    image_path: "http://i.imgur.com/w0anexQ.jpg",
     active: 1
   },
   %CarouselEvent{
-    image_path: "http://i.imgur.com/i7FBzzb.jpg",
+    image_path: "http://i.imgur.com/wZCBL13.jpg",
     active: 1
   }
 ] |> Enum.each(&Repo.insert!(&1))
