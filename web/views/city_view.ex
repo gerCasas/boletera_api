@@ -10,7 +10,7 @@ defmodule BoleteraApi.CityView do
   end
 
   def render("city.json", %{city: city}) do
-    %{id: city.id,
+    %{code: city.code,
       name: city.name,
       active: city.active,
       state_id: city.state_id}

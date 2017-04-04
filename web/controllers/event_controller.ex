@@ -21,7 +21,7 @@ defmodule BoleteraApi.EventController do
 
         case params["category_id"] do
           nil ->
-            query = from event in Event, join: city in City,  where: event.city_id == city.id
+            query = from event in Event, join: city in City,  where: event.city_id == city.code
             and event.city_id == ^value
             and event.active == 1
             and event.event_date >= ^datetime,
@@ -50,13 +50,13 @@ defmodule BoleteraApi.EventController do
             purchase_limit: event.purchase_limit,
             additional_info: event.additional_info,
             video_url: event.video_url,
-            city_id: city.id,
+            city_id: city.code,
             city_name: city.name,
             category_id: event.category_id
             }, order_by: event.event_date
           Repo.all(query)
           value ->
-              query = from event in Event, join: city in City,  where: event.city_id == city.id
+              query = from event in Event, join: city in City,  where: event.city_id == city.code
               and event.city_id == ^params["city_id"]
               and event.category_id == ^value
               and event.active == 1
@@ -86,7 +86,7 @@ defmodule BoleteraApi.EventController do
               purchase_limit: event.purchase_limit,
               additional_info: event.additional_info,
               video_url: event.video_url,
-              city_id: city.id,
+              city_id: city.code,
               city_name: city.name,
               category_id: event.category_id
               }, order_by: event.event_date

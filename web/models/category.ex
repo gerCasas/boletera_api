@@ -1,6 +1,8 @@
 defmodule BoleteraApi.Category do
   use BoleteraApi.Web, :model
 
+  @primary_key {:code, :string, []}
+  @derive {Phoenix.Param, key: :code}
   schema "categories" do
     field :name, :string
     field :active, :integer

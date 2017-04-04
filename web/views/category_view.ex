@@ -10,7 +10,7 @@ defmodule BoleteraApi.CategoryView do
   end
 
   def render("category.json", %{category: category}) do
-    %{id: category.id,
+    %{code: category.code,
       name: category.name,
       active: category.active,
       order_view: category.order_view}

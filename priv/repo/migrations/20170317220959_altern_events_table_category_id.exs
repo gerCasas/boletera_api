@@ -3,7 +3,8 @@ defmodule BoleteraApi.Repo.Migrations.AlternEventsTableCategoryId do
 
   def change do
     alter table(:events) do
-      add :category_id, references(:categories, on_delete: :nothing)
+      add :category_id, references(:categories, on_delete: :nothing, column: :code, type: :string)
     end
+    create index(:events, [:category_id])
   end
 end

@@ -24,8 +24,8 @@ defmodule BoleteraApi.Event do
     field :purchase_limit, :string
     field :additional_info, :string
     field :video_url, :string
-    belongs_to :city, BoleteraApi.City
-    belongs_to :category, BoleteraApi.Category
+    belongs_to :city, BoleteraApi.City, foreign_key: :city_id, references: :code, type: :string
+    belongs_to :category, BoleteraApi.Category, foreign_key: :category_id, references: :code, type: :string
     has_many :carouselevents, BoleteraApi.CarouselEvent
     has_many :event_photos, BoleteraApi.Event_Photo
 
