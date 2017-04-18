@@ -28,6 +28,7 @@ defmodule BoleteraApi.Event do
     belongs_to :category, BoleteraApi.Category, foreign_key: :category_id, references: :code, type: :string
     has_many :carouselevents, BoleteraApi.CarouselEvent
     has_many :event_photos, BoleteraApi.Event_Photo
+    has_many :showdates, BoleteraApi.ShowDate
 
     timestamps()
   end
