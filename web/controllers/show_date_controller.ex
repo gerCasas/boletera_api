@@ -13,44 +13,48 @@ defmodule BoleteraApi.ShowDateController do
         Repo.all(ShowDate)
       value ->
         json_to_render = "dates_formatted.json"
-        query = from show_date in ShowDate,
-        where: show_date.event_id == ^value,
-        order_by: show_date.show_date
-        Repo.all(query)
+        query = from show_date in ShowDate, join: date_hour in DateHour,
+        where: date_hour.show_date_id == show_date.id
+        and show_date.event_id == ^value,
+        select:
+        %{id: show_date.id,
+          show_date: show_date.show_date,
+          event_id: show_date.event_id,
+          date_hours_id: date_hour.id,
+          date_hour: date_hour.date_hour
+        }, order_by: show_date.show_date
+        generate_formated_datetimes(Repo.all(query))
     end
-
-    case params["event_id"] do
-      nil ->
-        json_to_render = "index.json"
-
-      value ->
-        json_to_render = "dates_formatted.json"
-
-        showdates = Enum.map(showdates, fn x ->
-          query = from date_hour in DateHour,
-          where: date_hour.show_date_id == ^x.id
-          query = Repo.all(query)
-          # IO.puts("@@@@@@@@@@@@@@@@@@@@")
-          x = Map.put_new(x, :date_hours, query)
-          # IO.inspect(x)
-          # IO.puts("@@@@@@@@@@@@@@@@@@@@")
-        end)
-        # IO.puts("@-@-@-@-@-@-@-@-@-@-@-@-@-@")
-        # IO.inspect(showdates)
-        IO.puts("@-@-@-@-@-@-@-@-@-@-@-@-@-@")
-    end
-
-
-    # query = from date_hour in DateHour,
-    # where: date_hour.show_date_id == ^show_date.id,
-    # order_by: date_hour.date_hour
-    # Repo.all(query)
-    #
-    # IO.puts("@@@@@@@@@@@@@@@@@@@@")
-    # IO.inspect(query)
-    # IO.puts("@@@@@@@@@@@@@@@@@@@@")
 
     render(conn, json_to_render, showdates: showdates)
+  end
+
+  def generate_formated_datetimes(input) do
+    uniq_dates = Enum.map(input, &get_show_dates/1) |> Enum.uniq
+    uniq_hours = Enum.map(input, &get_dates_hours/1) |> Enum.uniq
+    combine_date_and_hours(uniq_dates, uniq_hours)
+  end
+
+  def get_show_dates(input) do
+    %{id: input.id, event_id: input.event_id, show_date: input.show_date}
+  end
+
+  def get_dates_hours(input) do
+    %{show_date_id: input.id, date_hours_id: input.date_hours_id, date_hour: input.date_hour}
+  end
+
+  def combine_date_and_hours(dates, hours) do
+    Enum.map(dates, fn date ->
+        hours_by_date =
+          Enum.filter(hours, fn(hour) ->
+            if hour.show_date_id == date.id do
+              true
+            else
+              false
+            end
+          end)
+        Map.put_new(date, :date_hours, hours_by_date)
+      end)
   end
 
   def create(conn, %{"show_date" => show_date_params}) do
