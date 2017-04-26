@@ -19,6 +19,7 @@ defmodule BoleteraApi.EventController do
       value ->
         datetime = Timex.now("America/Tijuana")
 
+        # /api/citys/:city_id/events
         case params["category_id"] do
           nil ->
             query = from event in Event, join: city in City,  where: event.city_id == city.code
@@ -39,6 +40,7 @@ defmodule BoleteraApi.EventController do
             color_rgb: event.color_rgb,
             image_background_path: event.image_background_path,
             address: event.address,
+            limit_per_purchase: event.limit_per_purchase,
             refounds: event.refounds,
             gifting: event.gifting,
             assistance: event.assistance,
@@ -75,6 +77,7 @@ defmodule BoleteraApi.EventController do
               color_rgb: event.color_rgb,
               image_background_path: event.image_background_path,
               address: event.address,
+              limit_per_purchase: event.limit_per_purchase,
               refounds: event.refounds,
               gifting: event.gifting,
               assistance: event.assistance,

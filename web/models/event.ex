@@ -13,6 +13,7 @@ defmodule BoleteraApi.Event do
     field :color_rgb, :string
     field :image_background_path, :string
     field :address, :string
+    field :limit_per_purchase, :integer
     field :refounds, :string
     field :gifting, :string
     field :assistance, :string

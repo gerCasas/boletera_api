@@ -12,6 +12,7 @@ defmodule BoleteraApi.EventView do
   def render("event.json", %{event: event}) do
     # IO.puts("+++++++++++++++++++++++++++")
     # IO.inspect(event)
+    # IO.puts("+++++++++++++++++++++++++++")
 
     if Map.has_key?(event, :city_name) do
 
@@ -44,6 +45,7 @@ defmodule BoleteraApi.EventView do
         color_rgb: event.color_rgb,
         image_background_path: event.image_background_path,
         address: event.address,
+        limit_per_purchase: event.limit_per_purchase,
         video_url: event.video_url,
         city_id: event.city_id,
         city_name: event.city_name,
@@ -66,6 +68,7 @@ defmodule BoleteraApi.EventView do
         color_rgb: event.color_rgb,
         image_background_path: event.image_background_path,
         address: event.address,
+        limit_per_purchase: event.limit_per_purchase,
         refounds: event.refounds,
         gifting: event.gifting,
         assistance: event.assistance,
